@@ -36,7 +36,15 @@ class Fragment3 : Fragment() {
         title = view.findViewById(R.id.title)
         price = view.findViewById(R.id.price)
         detail = view.findViewById(R.id.detail)
-
+        title.setOnClickListener(){
+            title.setText("")
+        }
+        price.setOnClickListener(){
+            price.setText("")
+        }
+        detail.setOnClickListener(){
+            detail.setText("")
+        }
         btn.setOnClickListener() {
             addGoodsDB(title.text.toString(), price.text.toString(), detail.text.toString())
             Log.d("TAG", "버튼 정상 작동")
@@ -48,15 +56,16 @@ class Fragment3 : Fragment() {
     fun addGoodsDB(title: String, price: String, detail: String): Unit{
         findMaxSerial { maxSerial ->
             val serial = maxSerial.toInt() + 1 // Increment the serial
-            val goodsDB = GoodsDB(title, price, detail)
+            val goodsDB = Item(title, price, detail)
 
-            goodsReference.child("goods").child(serial.toString()).push().setValue(goodsDB)
+            goodsReference.child("goods").child(serial.toString()).setValue(goodsDB)
             maxSerialDB.setValue(serial.toString())
 //            val updateData = HashMap<String, Any>()
 //            updateData["MaxSerial"] = serial // 업데이트할 MaxSerial 필드와 값 추가
 //
 //            maxSerialDB.updateChildren(updateData)
             Log.d("TAG", "addGoodsDB함수 호출 완료")
+            Log.d("MaxSerial", "MaxSerial : " + serial)
         }
     }
     fun isNumeric(input: String): Boolean {

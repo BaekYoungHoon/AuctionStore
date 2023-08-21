@@ -28,7 +28,7 @@ class MainActivity : FragmentActivity() {
         tabs?.apply {
             addTab(newTab().setText("피드"))
             addTab(newTab().setText("채팅"))
-            addTab(newTab().setText("내정보"))
+            addTab(newTab().setText("상품등록"))
             addOnTabSelectedListener(object : OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     val position = tab.position

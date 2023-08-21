@@ -1,0 +1,7 @@
+package com.hoon.AuctionStore
+
+data class Item(
+    val title: String,
+    val price: String,
+    val detail: String
+)

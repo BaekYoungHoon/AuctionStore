@@ -2,33 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/holo_blue_bright">
+    android:background="@android:color/holo_blue_bright"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
-    </EditText>
+        android:background="@color/white"
+        android:text="제목을 입력하세요."
+        android:translationY="15dp"></EditText>
 
     <EditText
         android:id="@+id/price"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white">
-    </EditText>
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:text="가격을 입력하세요."
+        android:translationY="30dp"></EditText>
 
     <EditText
         android:id="@+id/detail"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/white">
-    </EditText>
+        android:layout_height="200dp"
+        android:background="@color/white"
+        android:text="상세내용을 입력하세요."
+        android:translationY="45dp"></EditText>
 
     <Button
         android:id="@+id/update"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-    </Button>
+        android:layout_height="50dp"
+        android:text="등록"
+        android:translationY="60dp"></Button>
 </LinearLayout>
