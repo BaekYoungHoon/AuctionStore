@@ -10,19 +10,19 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 class MainActivity : FragmentActivity() {
     private var tabs: TabLayout? = null
     private val fragmentManager: FragmentManager = supportFragmentManager
-    private lateinit var fragment1: Fragment1
-    private lateinit var fragment2: Fragment2
-    private lateinit var fragment3: Fragment3
+    private lateinit var itemListFragment: Fragment_ItemList
+    private lateinit var chatFragment: Fragment_Chat
+    private lateinit var myPropileFragment: Fragment_MyPropile
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragment1 = Fragment1()
-        fragment2 = Fragment2()
-        fragment3 = Fragment3()
+        itemListFragment = Fragment_ItemList()
+        chatFragment = Fragment_Chat()
+        myPropileFragment = Fragment_MyPropile()
 
-        fragmentManager.beginTransaction().add(R.id.container, fragment1).commit()
+        fragmentManager.beginTransaction().add(R.id.container, itemListFragment).commit()
 
         tabs = findViewById(R.id.tabs)
         tabs?.apply {
@@ -33,10 +33,10 @@ class MainActivity : FragmentActivity() {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     val position = tab.position
                     val selected: Fragment = when (position) {
-                        0 -> fragment1
-                        1 -> fragment2
-                        2 -> fragment3
-                        else -> fragment1
+                        0 -> itemListFragment
+                        1 -> chatFragment
+                        2 -> myPropileFragment
+                        else -> itemListFragment
                     }
                     fragmentManager.beginTransaction().replace(R.id.container, selected).commit()
                 }

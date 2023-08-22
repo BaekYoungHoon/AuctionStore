@@ -1,22 +1,17 @@
 package com.hoon.AuctionStore
 
-import android.R.attr.name
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
-class Fragment3 : Fragment() {
+class Fragment_AddItem : AppCompatActivity() {
     val db = FirebaseDatabase.getInstance()
     val goodsReference: DatabaseReference = db.getReference()
     val maxSerialDB: DatabaseReference = db.getReference("MaxSerial")
@@ -24,18 +19,18 @@ class Fragment3 : Fragment() {
     lateinit var title: EditText
     lateinit var price: EditText
     lateinit var detail: EditText
+    lateinit var direct: EditText
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.additem_fragment)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_3, container, false)
-        btn = view.findViewById(R.id.update)
-        title = view.findViewById(R.id.title)
-        price = view.findViewById(R.id.price)
-        detail = view.findViewById(R.id.detail)
+        btn = findViewById(R.id.update)
+        title = findViewById(R.id.title)
+        price = findViewById(R.id.price)
+        detail = findViewById(R.id.detail)
+        direct = findViewById(R.id.direct)
+
         title.setOnClickListener(){
             title.setText("")
         }
@@ -46,17 +41,26 @@ class Fragment3 : Fragment() {
             detail.setText("")
         }
         btn.setOnClickListener() {
-            addGoodsDB(title.text.toString(), price.text.toString(), detail.text.toString())
+            addGoodsDB(title.text.toString(), price.text.toString(), direct.text.toString(), detail.text.toString())
+            title.setText("")
+            price.setText("")
+            direct.setText("")
+            detail.setText("")
             Log.d("TAG", "버튼 정상 작동")
         }
-        return view
+
+//        val btnMain: Button = findViewById<Button>(R.id.btnMain)
+//
+//        btnMain.setOnClickListener(){
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
+
     }
-
-
-    fun addGoodsDB(title: String, price: String, detail: String): Unit{
+    fun addGoodsDB(title: String, price: String, direct: String, detail: String): Unit{
         findMaxSerial { maxSerial ->
             val serial = maxSerial.toInt() + 1 // Increment the serial
-            val goodsDB = Item(title, price, detail)
+            val goodsDB = Item(title, price, direct, detail)
 
             goodsReference.child("goods").child(serial.toString()).setValue(goodsDB)
             maxSerialDB.setValue(serial.toString())

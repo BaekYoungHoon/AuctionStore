@@ -15,6 +15,11 @@
         android:theme="@style/Theme.AuctionStore"
         tools:targetApi="31">
         <activity
+            android:name=".ItemDetail"
+            android:exported="false"
+            android:label="@string/title_activity_item_detail"
+            android:theme="@style/Theme.AuctionStore" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Lay1Activity"
+            android:name=".Fragment_AddItem"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

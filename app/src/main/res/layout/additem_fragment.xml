@@ -22,17 +22,25 @@
         android:translationY="30dp"></EditText>
 
     <EditText
+        android:id="@+id/direct"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:text="즉시 구매가를입력하세요."
+        android:translationY="45dp"></EditText>
+
+    <EditText
         android:id="@+id/detail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/white"
         android:text="상세내용을 입력하세요."
-        android:translationY="45dp"></EditText>
+        android:translationY="60dp"></EditText>
 
     <Button
         android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="등록"
-        android:translationY="60dp"></Button>
+        android:translationY="75dp"></Button>
 </LinearLayout>
