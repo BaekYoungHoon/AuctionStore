@@ -2,8 +2,8 @@ package com.hoon.AuctionStore
 
 import com.google.firebase.database.FirebaseDatabase
 
-data class GoodsDB(val title: String, val detail: String, val price: String, val direct: String) {
-    override fun toString(): String {
+data class GoodsDB(var title: String, var detail: String, var price: String, var direct: String) {
+        override fun toString(): String {
         return "제목: $title\n가격: $price\n즉시 구매가: $direct"
     }
 }
