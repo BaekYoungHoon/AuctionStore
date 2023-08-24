@@ -37,15 +37,17 @@ class Fragment_ItemList : Fragment() {
         listView.setOnItemClickListener { parent, view, position, id ->
             val selectedItem = itemList[position] // 클릭한 아이템의 정보 가져오기
             // 여기서 원하는 동작을 수행하면 됩니다.
-
             viewModel.shareGoodsDB.value = selectedItem
             viewModel.shareNum.value = position
-            Log.d("SELECT_ITEM", selectedItem.toString() + "\n" + position)
+
+            Log.d("SELECT_ITEM", selectedItem.toString() + "\n" + position + "\n" + viewModel.shareNum.value)
             // 예를 들어, 다른 프래그먼트로 이동하거나 다이얼로그를 띄울 수 있습니다.
             // 프래그먼트 매니저 가져오기
             val intent = Intent(requireActivity(), Activity_ItemDetail::class.java)
             // 다른 액티비티로 전환
+            intent.putExtra("key", position)
             startActivity(intent)
+
         }
 
         itemDB.addListenerForSingleValueEvent(object : ValueEventListener {

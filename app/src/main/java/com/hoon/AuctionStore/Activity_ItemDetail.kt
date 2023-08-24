@@ -27,7 +27,9 @@ class Activity_ItemDetail : AppCompatActivity() {
         val detailT: TextView = findViewById(R.id.detail)
         val btn: Button = findViewById(R.id.back)
         viewModel = ViewModelProvider(this@Activity_ItemDetail).get(SharedViewModel::class.java)
-        val listNum: Int = viewModel.shareNum.value!!.plus(1)
+        val listNum: Int? = viewModel.shareNum.value?.plus(1)
+        val receivedData = intent.extras?.getInt("key")?.plus(1) // 데이터 추출
+
 
         btn.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
@@ -37,20 +39,23 @@ class Activity_ItemDetail : AppCompatActivity() {
         itemDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
+                    val serials: Any = dataSnapshot.key ?:""
                     val title = dataSnapshot.child("title").getValue(String::class.java) ?: ""
                     val price = dataSnapshot.child("price").getValue(String::class.java) ?: ""
                     val direct = dataSnapshot.child("direct").getValue(String::class.java) ?: ""
                     val detail = dataSnapshot.child("detail").getValue(String::class.java) ?: ""
                     Log.d("DATASNAP", "dataSnapshot = " + dataSnapshot + "          스냅샷칠드런 = " + snapshot.children)
                     Log.d("DB_READ", "title : " + title + "         price : " + price + "       direct : " + direct)
-                    Log.d("ListNum", "ListNum = " + listNum)
+                    Log.d("ListNum", "ListNum = " + listNum + serials)
+                    Log.d("receivedData", "$receivedData")
                     val item = GoodsDB(title, "", price, direct)
-                    if(listNum.toString() == dataSnapshot.toString()){
+                    if(receivedData.toString() == serials){
                         titleT.setText(title)
                         priceT.setText(price)
                         directT.setText(direct)
                         detailT.setText(detail)
                         Log.d("FIND", "데이터 일치")
+                        break
                     }
                     Log.d("ITem", "Item : " + item)
                 }
