@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class Fragment_ItemDetail  : Fragment() {
+class Fragment_ItemDetail : Fragment() {
     val db = FirebaseDatabase.getInstance()
     val itemDB: DatabaseReference = db.getReference("goods")
     private lateinit var viewModel: SharedViewModel
@@ -40,7 +40,7 @@ class Fragment_ItemDetail  : Fragment() {
 
                     Log.d("DB_READ", "title : " + title + "         price : " + price + "       direct : " + direct)
                     val item = GoodsDB(title, "", price, direct)
-                    if(viewModel.shareGoodsDB.value == item){
+                    if (viewModel.shareGoodsDB.value == item) {
                         titleT.setText(title)
                         priceT.setText(price)
                         directT.setText(direct)
@@ -48,7 +48,6 @@ class Fragment_ItemDetail  : Fragment() {
                     }
                     Log.d("ITem", "Item : " + item)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {

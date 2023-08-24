@@ -31,16 +31,16 @@ class Fragment_AddItem : AppCompatActivity() {
         detail = findViewById(R.id.detail)
         direct = findViewById(R.id.direct)
 
-        title.setOnClickListener(){
+        title.setOnClickListener {
             title.setText("")
         }
-        price.setOnClickListener(){
+        price.setOnClickListener {
             price.setText("")
         }
-        detail.setOnClickListener(){
+        detail.setOnClickListener {
             detail.setText("")
         }
-        btn.setOnClickListener() {
+        btn.setOnClickListener {
             addGoodsDB(title.text.toString(), price.text.toString(), direct.text.toString(), detail.text.toString())
             title.setText("")
             price.setText("")
@@ -55,9 +55,8 @@ class Fragment_AddItem : AppCompatActivity() {
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
 //        }
-
     }
-    fun addGoodsDB(title: String, price: String, direct: String, detail: String): Unit{
+    fun addGoodsDB(title: String, price: String, direct: String, detail: String) {
         findMaxSerial { maxSerial ->
             val serial = maxSerial.toInt() + 1 // Increment the serial
             val goodsDB = Item(title, price, direct, detail)

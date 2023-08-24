@@ -16,12 +16,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class Fragment_ItemList : Fragment() {
     val db = FirebaseDatabase.getInstance()
     val itemDB: DatabaseReference = db.getReference("goods")
     private lateinit var viewModel: SharedViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +45,6 @@ class Fragment_ItemList : Fragment() {
             // 다른 액티비티로 전환
             intent.putExtra("key", position)
             startActivity(intent)
-
         }
 
         itemDB.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -69,7 +66,6 @@ class Fragment_ItemList : Fragment() {
                 Log.d("Failed", "데이터 로딩 실패")
             }
         })
-
 
         return view
     }

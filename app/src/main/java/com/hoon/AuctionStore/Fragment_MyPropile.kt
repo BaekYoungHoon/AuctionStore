@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class Fragment_MyPropile : Fragment() {
     val db = FirebaseDatabase.getInstance()
     val goodsReference: DatabaseReference = db.getReference()
@@ -24,7 +23,6 @@ class Fragment_MyPropile : Fragment() {
     lateinit var price: EditText
     lateinit var detail: EditText
     lateinit var direct: EditText
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,16 +35,16 @@ class Fragment_MyPropile : Fragment() {
         price = view.findViewById(R.id.price)
         detail = view.findViewById(R.id.detail)
         direct = view.findViewById(R.id.direct)
-        title.setOnClickListener(){
+        title.setOnClickListener {
             title.setText("")
         }
-        price.setOnClickListener(){
+        price.setOnClickListener {
             price.setText("")
         }
-        detail.setOnClickListener(){
+        detail.setOnClickListener {
             detail.setText("")
         }
-        btn.setOnClickListener() {
+        btn.setOnClickListener {
             addGoodsDB(title.text.toString(), price.text.toString(), direct.text.toString(), detail.text.toString())
             title.setText("")
             price.setText("")
@@ -57,8 +55,7 @@ class Fragment_MyPropile : Fragment() {
         return view
     }
 
-
-    fun addGoodsDB(title: String, price: String, direct: String, detail: String): Unit{
+    fun addGoodsDB(title: String, price: String, direct: String, detail: String) {
         findMaxSerial { maxSerial ->
             val serial = maxSerial.toInt() + 1 // Increment the serial
             val goodsDB = Item(title, price, direct, detail)
