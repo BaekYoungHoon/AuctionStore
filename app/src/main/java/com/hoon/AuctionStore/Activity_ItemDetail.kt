@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -26,34 +27,57 @@ class Activity_ItemDetail : AppCompatActivity() {
         val directT: TextView = findViewById(R.id.direct)
         val detailT: TextView = findViewById(R.id.detail)
         val btn: Button = findViewById(R.id.back)
-        viewModel = ViewModelProvider(this@Activity_ItemDetail).get(SharedViewModel::class.java)
-        val listNum: Int? = viewModel.shareNum.value?.plus(1)
-        val receivedData = intent.extras?.getInt("key")?.plus(1) // 데이터 추출
+        val ChangePrice: EditText = findViewById(R.id.changeprice)
 
+        viewModel = ViewModelProvider(this@Activity_ItemDetail).get(SharedViewModel::class.java)
+        val ListNum = intent.extras?.getInt("key")?.plus(1) // 데이터 추출
+
+        var serials: String = ""
+        var title: String = ""
+        var price: String = ""
+        var direct: String = ""
+        var detail: String = ""
+
+        fun isNumeric(input: String): Boolean {
+            return input.toIntOrNull() != null
+        }
+        ChangePrice.setOnClickListener {
+            ChangePrice.setText("")
+        }
         btn.setOnClickListener {
+            val priceE = ChangePrice.text.toString().toInt()
+            val priceI = price.toInt()
+            if (priceE > priceI) {
+                if (isNumeric(ChangePrice.text.toString())) {
+                    startActivity(intent)
+                }
+                price = ChangePrice.text.toString()
+                itemDB.child(serials).setValue(GoodsDB(title, detail, price, direct))
+            }
+
+
             val intent = Intent(this, MainActivity::class.java)
-            // 다른 액티비티로 전환
             startActivity(intent)
         }
         itemDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
-                    val serials: Any = dataSnapshot.key ?: ""
-                    val title = dataSnapshot.child("title").getValue(String::class.java) ?: ""
-                    val price = dataSnapshot.child("price").getValue(String::class.java) ?: ""
-                    val direct = dataSnapshot.child("direct").getValue(String::class.java) ?: ""
-                    val detail = dataSnapshot.child("detail").getValue(String::class.java) ?: ""
+                    serials = dataSnapshot.key ?: ""
+                    title = dataSnapshot.child("title").getValue(String::class.java) ?: ""
+                    price = dataSnapshot.child("price").getValue(String::class.java) ?: ""
+                    direct = dataSnapshot.child("direct").getValue(String::class.java) ?: ""
+                    detail = dataSnapshot.child("detail").getValue(String::class.java) ?: ""
                     Log.d("DATASNAP", "dataSnapshot = " + dataSnapshot + "          스냅샷칠드런 = " + snapshot.children)
                     Log.d("DB_READ", "title : " + title + "         price : " + price + "       direct : " + direct)
-                    Log.d("ListNum", "ListNum = " + listNum + serials)
-                    Log.d("receivedData", "$receivedData")
+                    Log.d("ListNum", "ListNum = " + serials)
+                    Log.d("receivedData", "$ListNum")
                     val item = GoodsDB(title, "", price, direct)
-                    if (receivedData.toString() == serials) {
+                    if (ListNum.toString() == serials) {
                         titleT.setText(title)
                         priceT.setText(price)
                         directT.setText(direct)
                         detailT.setText(detail)
-                        Log.d("FIND", "데이터 일치")
+                        Log.d("FIND", "데이터 일치\n $serials")
                         break
                     }
                     Log.d("ITem", "Item : " + item)

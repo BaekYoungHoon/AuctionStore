@@ -2,7 +2,7 @@ package com.hoon.AuctionStore
 
 data class GoodsDB(var title: String, var detail: String, var price: String, var direct: String) {
     override fun toString(): String {
-        return "제목: $title\n가격: $price\n즉시 구매가: $direct"
+        return "제목: $title\n현재 경매가: $price\n즉시 구매가: $direct"
     }
 }
 // val database = FirebaseDatabase.getInstance()
