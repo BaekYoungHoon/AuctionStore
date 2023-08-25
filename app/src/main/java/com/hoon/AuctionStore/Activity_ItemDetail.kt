@@ -30,8 +30,7 @@ class Activity_ItemDetail : AppCompatActivity() {
         val listNum: Int? = viewModel.shareNum.value?.plus(1)
         val receivedData = intent.extras?.getInt("key")?.plus(1) // 데이터 추출
 
-
-        btn.setOnClickListener(){
+        btn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             // 다른 액티비티로 전환
             startActivity(intent)
@@ -39,7 +38,7 @@ class Activity_ItemDetail : AppCompatActivity() {
         itemDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children) {
-                    val serials: Any = dataSnapshot.key ?:""
+                    val serials: Any = dataSnapshot.key ?: ""
                     val title = dataSnapshot.child("title").getValue(String::class.java) ?: ""
                     val price = dataSnapshot.child("price").getValue(String::class.java) ?: ""
                     val direct = dataSnapshot.child("direct").getValue(String::class.java) ?: ""
@@ -49,7 +48,7 @@ class Activity_ItemDetail : AppCompatActivity() {
                     Log.d("ListNum", "ListNum = " + listNum + serials)
                     Log.d("receivedData", "$receivedData")
                     val item = GoodsDB(title, "", price, direct)
-                    if(receivedData.toString() == serials){
+                    if (receivedData.toString() == serials) {
                         titleT.setText(title)
                         priceT.setText(price)
                         directT.setText(direct)
@@ -59,7 +58,6 @@ class Activity_ItemDetail : AppCompatActivity() {
                     }
                     Log.d("ITem", "Item : " + item)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
